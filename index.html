@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!-- Layout inspired by Jon Barron's academic website (https://jonbarron.info) -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crystal Zhou</title>
+  <meta name="description" content="Crystal Zhou — robotics researcher at Carnegie Mellon University working on shared autonomy and robot learning.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="container">
+
+  <!-- ===================== HEADER / BIO ===================== -->
+  <section class="intro">
+    <div class="intro-text">
+      <h1>Crystal Zhou</h1>
+      <p>
+        I'm a graduate researcher in Mechanical Engineering at
+        <a href="https://www.cmu.edu/">Carnegie Mellon University</a>, working in the
+        <a href="https://rchi-lab.github.io/">Robotic Caregiving &amp; Human Interaction Lab</a>
+        at the <a href="https://www.ri.cmu.edu/">Robotics Institute</a>.
+      </p>
+      <p>
+        My research focuses on <strong>shared autonomy</strong> and <strong>robot learning</strong> —
+        how humans and pretrained robot foundation models (e.g. vision-language-action policies)
+        can work together so that robots stay robust with minimal human input.
+        Previously, I worked on autonomous flight controls at Lockheed Martin and studied
+        spinal reflex modulation in the NeuroMechatronics Lab.
+      </p>
+      <p class="links">
+        <a href="mailto:crystalz@andrew.cmu.edu">Email</a> &nbsp;/&nbsp;
+        <a href="cv.pdf">CV</a> &nbsp;/&nbsp;
+        <a href="https://scholar.google.com/">Google Scholar</a> &nbsp;/&nbsp;
+        <a href="https://github.com/zhou-crystal">GitHub</a> &nbsp;/&nbsp;
+        <a href="https://www.linkedin.com/in/crystal-zhou02/">LinkedIn</a>
+      </p>
+    </div>
+    <div class="intro-photo">
+      <img src="images/profile.svg" alt="Photo of Crystal Zhou">
+    </div>
+  </section>
+
+  <!-- ===================== NEWS ===================== -->
+  <section>
+    <h2>News</h2>
+    <ul class="news">
+      <li><span class="date">2026</span> SAPS preprint released on arXiv.</li>
+      <li><span class="date">Aug 2025</span> Joined the Robotic Caregiving &amp; Human Interaction Lab at CMU RI.</li>
+      <li><span class="date">Jun 2025</span> Started as a Flight Controls SWE intern at Lockheed Martin (VISTA / VENOM).</li>
+    </ul>
+  </section>
+
+  <!-- ===================== RESEARCH ===================== -->
+  <section>
+    <h2>Research</h2>
+    <p class="section-note">I'm interested in human-robot interaction, robot learning, and control. Representative papers are below.</p>
+
+    <div class="item highlight">
+      <div class="item-media"><img src="images/placeholder.svg" alt="SAPS teaser"></div>
+      <div class="item-text">
+        <a href="#"><span class="title">SAPS: Shared Autonomy for Policy Steering by Blending Teleoperation with a Pretrained VLA</span></a><br>
+        <strong>Crystal Zhou</strong>, et al.<br>
+        <em>arXiv</em>, 2026<br>
+        <a href="#">project page</a> / <a href="#">arXiv</a> / <a href="#">video</a>
+        <p>A shared-autonomy framework that blends sparse user inputs with a pretrained VLA (π0.5). In a 14-user LIBERO / Franka Panda study, SAPS achieved up to 9.3× the success rate of the base policy with less than 50% human input.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-media"><img src="images/placeholder.svg" alt="Viewpoint teaser"></div>
+      <div class="item-text">
+        <span class="title">Shared Autonomy as a Core Design Principle for Robot Foundation Models</span> <span class="tag">in preparation</span><br>
+        <strong>Crystal Zhou</strong>, et al. (with Toyota Research Institute)<br>
+        <em>Viewpoint</em><br>
+        <p>A viewpoint arguing that shared autonomy should be treated as a first-class design principle for robot foundation models.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-media"><img src="images/placeholder.svg" alt="Spinal reflex study teaser"></div>
+      <div class="item-text">
+        <span class="title">Evidence of Causal Relationship between Spinal Reflex Gain Modulation and Gait Asymmetry During Active Locomotion in Humans</span><br>
+        O. Refy, <strong>Crystal Zhou</strong>, et al.<br>
+        <em>Society for Neuroscience Annual Meeting</em>, 2024 (PSTR076.14)<br>
+        <p>A human study analyzing H-reflex suppression during asymmetric gait.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section>
+    <h2>Projects</h2>
+
+    <div class="item">
+      <div class="item-media"><img src="images/placeholder.svg" alt="Crazyflie CBF project"></div>
+      <div class="item-text">
+        <span class="title">Control Barrier Functions for a Nano-Quadrotor</span><br>
+        <em>Control Systems Integration, CMU</em><br>
+        <a href="#">code</a> / <a href="#">video</a>
+        <p>Deployed a 3D CBF safety filter with TinyMPC on a Crazyflie 2.0 for real-time avoidance of static and dynamic obstacles, validated in PyBullet before hardware tests.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-media"><img src="images/placeholder.svg" alt="RoboRacer NMPC project"></div>
+      <div class="item-text">
+        <span class="title">Nonlinear MPC for RoboRacer</span><br>
+        <em>Optimal Control &amp; Reinforcement Learning, CMU</em><br>
+        <a href="#">code</a> / <a href="#">video</a>
+        <p>Real-time trajectory tracking using the full nonlinear dynamics model and constraints, supporting aggressive maneuvers like drifting.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-media"><img src="images/placeholder.svg" alt="CAD GNN project"></div>
+      <div class="item-text">
+        <span class="title">Faces to Features: Hierarchical GNNs for Feature Recognition in CAD Models</span><br>
+        <em>Intro to Deep Learning, CMU</em><br>
+        <a href="#">report</a> / <a href="#">code</a>
+        <p>Hierarchical GCN for 25-class machining-feature recognition on B-Rep graphs of 59,665 parts; best model reached 85% accuracy and 0.785 macro F1.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE ===================== -->
+  <section>
+    <h2>Experience</h2>
+    <ul class="cv-list">
+      <li><strong>Graduate Research Assistant</strong>, Robotic Caregiving &amp; Human Interaction Lab, CMU Robotics Institute <span class="date">2025 – present</span></li>
+      <li><strong>Software Engineer Intern, Flight Controls</strong>, Lockheed Martin Aeronautics <span class="date">Summer 2025</span></li>
+      <li><strong>Technical Project Management Intern</strong>, Lockheed Martin Skunk Works <span class="date">Summer 2024</span></li>
+      <li><strong>Undergraduate Research Assistant</strong>, NeuroMechatronics Lab, CMU <span class="date">Spring 2024</span></li>
+    </ul>
+
+    <h2>Education</h2>
+    <ul class="cv-list">
+      <li><strong>M.S. Mechanical Engineering</strong>, Carnegie Mellon University <span class="date">2026</span></li>
+      <li><strong>B.S. Mechanical Engineering &amp; Biomedical Engineering</strong>, Carnegie Mellon University</li>
+    </ul>
+
+    <h2>Misc</h2>
+    <p>Co-captain of the CMU NCAA DIII Varsity Women's Tennis team; All-American in singles and doubles (2021–2023).</p>
+  </section>
+
+  <footer>
+    <p>Last updated November 2026. Design inspired by <a href="https://jonbarron.info">Jon Barron's website</a>.</p>
+  </footer>
+
+</main>
+</body>
+</html>
