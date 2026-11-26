@@ -6,6 +6,7 @@
   --highlight: #fff8e6;
   --border: #e5e5e5;
   --bg: #ffffff;
+  --hover-bg: #f6f7f9;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +18,7 @@
     --highlight: #2a2618;
     --border: #333;
     --bg: #121212;
+    --hover-bg: #1c1c1e;
   }
 }
 
@@ -89,18 +91,104 @@ h2 { font-size: 22px; font-weight: 400; margin: 36px 0 12px; }
   margin-left: 4px;
 }
 
+.lede { display: block; margin-top: 8px; }
+
+/* ---------- expandable project details ---------- */
+/* The whole card (thumbnail + header) is the click target; details open
+   full-width underneath instead of inside the text column. */
+details.item { display: block; transition: background-color 0.15s ease; }
+details.item:not(.highlight):hover,
+details.item:not(.highlight)[open] { background: var(--hover-bg); }
+details.item > summary {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  cursor: pointer;
+}
+details.item > summary::-webkit-details-marker { display: none; }
+details.item > summary:focus-visible { outline: 2px solid var(--link); outline-offset: 6px; border-radius: 4px; }
+details.item > summary .item-media,
+details.item > summary .item-text { display: block; }
+details.item > summary:hover .title { color: var(--link-hover); }
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--link);
+}
+.toggle::before { content: "Details"; }
+details[open] .toggle::before { content: "Hide details"; }
+.toggle::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+details[open] .toggle::after { transform: translateY(1px) rotate(-135deg); }
+
+.more {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  animation: reveal 0.2s ease;
+}
+.more p { margin: 0 0 10px; }
+.more ul { padding-left: 18px; margin: 0 0 10px; }
+.more li { margin-bottom: 4px; }
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .more { animation: none; }
+  .toggle::after, details.item { transition: none; }
+}
+
+.results {
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 14px;
+}
+.results th, .results td {
+  padding: 4px 12px 4px 0;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.results th { color: var(--muted); font-weight: 400; }
+.results td:nth-child(n+3), .results th:nth-child(n+3) { text-align: right; }
+.results tr.best td { font-weight: 700; }
+
+.wide-figure { margin: 14px 0 10px; }
+.wide-figure img, .wide-figure video { width: 100%; max-width: 560px; display: block; border-radius: 4px; }
+.wide-figure video { background: #000; aspect-ratio: 16 / 9; }
+.table-note { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.wide-figure figcaption { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
 .video-row {
   display: flex;
   gap: 12px;
   margin-top: 12px;
 }
-.video-row figure { margin: 0; flex: 0 1 170px; }
+.video-row figure { margin: 0; flex: 0 1 220px; }
 .video-row video {
   width: 100%;
   aspect-ratio: 9 / 16;
   border-radius: 4px;
   display: block;
   background: #000;
+}
+.video-row img {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
 }
 .video-row figcaption { font-size: 13px; color: var(--muted); margin-top: 4px; }
 
@@ -124,7 +212,9 @@ footer {
 @media (max-width: 640px) {
   .intro { flex-direction: column-reverse; }
   .intro-photo { width: 55%; }
-  .item { flex-direction: column; }
+  .item, details.item > summary { flex-direction: column; }
   .item-media { flex: none; width: 100%; max-width: 320px; }
+  details.item > summary .item-media { width: 100%; }
   .cv-list .date { float: none; display: block; padding-left: 0; }
 }
+.results.num td:nth-child(n+2), .results.num th:nth-child(n+2) { text-align: right; padding-left: 12px; }

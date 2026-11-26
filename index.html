@@ -24,8 +24,7 @@
       <p>
         My research focuses on <strong>shared autonomy</strong> and <strong>robot learning</strong> —
         how humans and pretrained robot foundation models (e.g. vision-language-action policies)
-        can work together so that robots stay robust with minimal human input.
-        Previously, I worked on autonomous flight controls at Lockheed Martin and studied
+        can work together so that robots stay robust with minimal human input.        Previously, I worked on autonomous flight controls at Lockheed Martin and studied
         spinal reflex modulation in the NeuroMechatronics Lab.
       </p>
       <p class="links">
@@ -39,7 +38,7 @@
     </div>
   </section>
 
-  <!-- ===================== NEWS ===================== -->
+  <!-- ===================== NEWS (hidden for now; uncomment to show) =====================
   <section>
     <h2>News</h2>
     <ul class="news">
@@ -47,39 +46,96 @@
       <li><span class="date">Jun 2025</span> Started as a Flight Controls SWE intern at Lockheed Martin (VISTA / VENOM).</li>
     </ul>
   </section>
+  ===================== END NEWS ===================== -->
 
   <!-- ===================== RESEARCH ===================== -->
   <section>
     <h2>Research</h2>
-    <p class="section-note">I'm interested in human-robot interaction, robot learning, and control. Representative papers are below.</p>
+    <p class="section-note">I'm interested in human-robot interaction, robot learning, and control. Click a project to see more.</p>
 
-    <div class="item highlight">
-      <div class="item-media"><img src="images/placeholder.svg" alt="SAPS teaser"></div>
-      <div class="item-text">
-        <span class="title">SAPS: Shared Autonomy for Policy Steering by Blending Teleoperation with a Pretrained VLA</span><br>
-        <strong>Crystal Zhou</strong>, et al.<br>
-        <em>Under review</em>, 2026<br>
-        <p>Pretrained vision-language-action policies are brittle when the scene shifts out of distribution, and full teleoperation is tiring. SAPS lets a human steer a pretrained VLA by blending their real-time commands with the policy's own actions, without retraining or changing the model. Evaluated in simulation, on a real robot arm, and in a user study, it recovers most of the success lost to out-of-distribution changes while needing far less human input and effort than teleoperation.</p>
-      </div>
-    </div>
+    <details class="item highlight expandable">
+      <summary>
+        <span class="item-media"><img src="images/saps_teaser.webp" alt="A VLA rollout drifting out of distribution, with shared-autonomy input steering it back to the goal"></span>
+        <span class="item-text">
+          <span class="title">SAPS: Shared Autonomy for Policy Steering by Blending Teleoperation with a Pretrained VLA</span> <span class="tag">under review</span><br>
+          <strong>Crystal Zhou*</strong>, Jehan Yang*, Douglas J. Weber, Zackory Erickson<br>
+          <em>Conference paper</em>, 2026
+          <span class="lede">Lets a person steer a pretrained vision-language-action (VLA) policy in real time by blending their joystick commands with the policy's own actions. In a 14-person user study, it raised real-robot success from 34.5% with teleoperation to as high as 77.4%, with people steering less than half the time.</span>
+          <span class="toggle"></span>
+        </span>
+      </summary>
+        <div class="more">
+          <p>Pretrained VLAs can manipulate objects competently, but they break down when the scene shifts out of distribution, for example when an object sits somewhere the policy never saw in training. Full teleoperation fixes this but is tiring. SAPS sits in between: at every control step it blends the operator's command with the policy's action, so the person only needs to step in where the policy goes wrong. It works at the action level, with no retraining, no extra models, and no changes to the policy's architecture.</p>
+          <p>We compare three ways to share control:</p>
+          <ul>
+            <li><strong>Takeover:</strong> whenever the person moves the joystick, their command fully replaces the policy's.</li>
+            <li><strong>Blending:</strong> while the person is active, the robot follows an equal mix of the person's and the policy's actions.</li>
+            <li><strong>Cosine:</strong> the mix adapts to how much the person and the policy agree on direction. The more they agree, the more the policy keeps control.</li>
+          </ul>
+          <p>We evaluate SAPS with the π0.5 VLA in LIBERO, LIBERO-PRO and CALVIN simulations and on a real Franka arm. We also ran a user study with 14 participants and a case study with an expert user with quadriplegia.</p>
+          <table class="results num">
+            <thead>
+              <tr><th>Method</th><th>Success (sim)</th><th>Success (real)</th><th>Human control (real)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Full autonomy (π0.5)</td><td>8.3%</td><td>8.3%</td><td>0%</td></tr>
+              <tr><td>Teleoperation</td><td>44.0%</td><td>34.5%</td><td>100%</td></tr>
+              <tr><td>SAPS: Cosine</td><td><strong>75.0%</strong></td><td>67.2%</td><td>43%</td></tr>
+              <tr><td>SAPS: Blending</td><td>44.0%</td><td>64.3%</td><td>45%</td></tr>
+              <tr><td>SAPS: Takeover</td><td>65.5%</td><td><strong>77.4%</strong></td><td>44%</td></tr>
+            </tbody>
+          </table>
+          <p class="table-note">User study results: 14 participants in simulation (LIBERO-PRO) and 13 on the real robot. "Human control" is the share of task time the participant was actively steering.</p>
+          <p>What we found:</p>
+          <ul>
+            <li><strong>Less work for users.</strong> Compared with teleoperation, SAPS cut reported workload (NASA-TLX) by 20.8% in simulation and 28.2% on hardware. On the real robot, no participant ranked teleoperation as their favorite method.</li>
+            <li><strong>Experts get close to the ceiling with little effort.</strong> In LIBERO-PRO, experienced operators reached 92.6–97.4% success with SAPS, close to teleoperation's 98.8%, while steering only 10.8–30% of the time.</li>
+            <li><strong>Performance isn't the same as preference.</strong> The expert user with quadriplegia matched or improved their success and finished tasks faster with SAPS (16.9% faster in simulation, 15.5% on hardware), yet still preferred teleoperation.</li>
+          </ul>
+          <p>Our takeaway: coarse human input can guide a pretrained policy through out-of-distribution failures while keeping its learned manipulation skills. That makes shared autonomy a practical complement to robot foundation models, ideally one that adapts to each user's expertise and preferences.</p>
+          <figure class="wide-figure">
+            <video controls playsinline preload="none" poster="images/saps_poster.webp" src="videos/saps.mp4"></video>
+            <figcaption>Overview video (3:54)</figcaption>
+          </figure>
+          <p class="table-note">* Equal contribution.</p>
+        </div>
+    </details>
 
-    <div class="item">
-      <div class="item-media"><img src="images/placeholder.svg" alt="Viewpoint teaser"></div>
-      <div class="item-text">
-        <span class="title">Shared Autonomy as a Core Design Principle for Robot Foundation Models</span> <span class="tag">in preparation</span><br>
-        <strong>Crystal Zhou</strong>, et al. (with Toyota Research Institute)<br>
-        <em>Viewpoint</em><br>
-        <p>A viewpoint arguing that shared autonomy should be treated as a first-class design principle for robot foundation models.</p>
-      </div>
-    </div>
+    <details class="item expandable">
+      <summary>
+        <span class="item-media"><img src="images/viewpoint_fig2.jpg" alt="Diagram: shared autonomy connects human needs (rich communication, adaptability, reliability) with the capabilities and limits of generalist robot policies"></span>
+        <span class="item-text">
+          <span class="title">Shared Autonomy as a Core Design Principle for Robot Foundation Models</span> <span class="tag">under review</span><br>
+          <strong>Crystal Zhou</strong>, et al. (with Toyota Research Institute)<br>
+          <em>Viewpoint</em>, 2026
+          <span class="lede">A viewpoint on why robot foundation models should be designed and evaluated with people in the loop, not only for full autonomy.</span>
+          <span class="toggle"></span>
+        </span>
+      </summary>
+        <div class="more">
+          <p>Most vision-language-action models are built and tested for full autonomy: a person gives one instruction and the robot runs on its own. That leaves little room to clarify intent, react when circumstances change, or redirect the robot partway through a task. We argue that responding to human guidance should be a first-class capability of these models, not just a backup for when autonomy fails.</p>
+          <figure class="wide-figure">
+            <img src="images/viewpoint_fig2.jpg" alt="Diagram: shared autonomy connects human needs (rich communication, adaptability, reliability) with the capabilities and limits of generalist robot policies">
+            <figcaption>Generalist policies are built for text instructions and controlled settings, while people need rich communication, adaptability and reliability. Shared autonomy bridges the gap by capturing intent, collecting interaction data, and making partly capable policies safer and more successful.</figcaption>
+          </figure>
+          <p>We look at what this means across the life of a robot policy:</p>
+          <ul>
+            <li><strong>Training:</strong> preparing policies to respond to people, using human and human-robot interaction data rather than demonstrations alone.</li>
+            <li><strong>Guided execution:</strong> letting people steer through many kinds of input, both for the overall task and for the robot's moment-to-moment motion.</li>
+            <li><strong>Adaptation:</strong> learning from people's corrections over repeated use without losing what the policy already knows.</li>
+            <li><strong>Evaluation:</strong> measuring more than task success, including whether the result matched what the person wanted and how much effort it took them.</li>
+          </ul>
+          <p>We close with settings where this matters most, including home and assistive robotics, and a call for intervention-aware metrics and long-term benchmarks with real users.</p>
+        </div>
+    </details>
 
     <div class="item">
       <div class="item-media"><img src="images/placeholder.svg" alt="Spinal reflex study teaser"></div>
       <div class="item-text">
         <span class="title">Evidence of Causal Relationship between Spinal Reflex Gain Modulation and Gait Asymmetry During Active Locomotion in Humans</span><br>
         O. Refy, <strong>Crystal Zhou</strong>, et al.<br>
-        <em>Society for Neuroscience Annual Meeting</em>, 2024 (PSTR076.14)<br>
-        <p>A human study analyzing H-reflex suppression during asymmetric gait.</p>
+        <em>Society for Neuroscience Annual Meeting</em>, 2024 (PSTR076.14)
+        <span class="lede">A human study analyzing H-reflex suppression during asymmetric gait.</span>
       </div>
     </div>
   </section>
@@ -88,64 +144,93 @@
   <section>
     <h2>Projects</h2>
 
-    <div class="item">
-      <div class="item-media"><img src="images/cbf_thumb.jpg" alt="Crazyflie nano-quadrotor flying between cardboard-box obstacles in a netted lab"></div>
-      <div class="item-text">
-        <span class="title">Control Barrier Functions for Obstacle Avoidance on a Nano-Quadrotor</span><br>
-        <strong>Crystal Zhou</strong>, Mason Stark, Katherine Horng, Qihan Wang<br>
-        <em>Control Systems Integration, CMU</em><br>
-        <p>Small drones have to dodge obstacles in real time using only lightweight onboard sensing. We used control barrier functions (CBFs), which define a safe set and solve a small quadratic program (CBF-QP) each step to minimally adjust the commanded velocity so the drone never leaves it. We ran this on a Crazyflie, which detects obstacles with its Multi-Ranger deck and estimates its own motion with an optical-flow deck.</p>
-        <p>I led the hardware side, building on Tayal et al.'s collision-cone CBF (C3BF) code. I wrote the Crazyflie interface, which streams state estimates and Multi-Ranger readings over the radio and turns them into obstacles. I also wrote the controller: a 3D C3BF over the drone's 12-state dynamics, solved each step as a QP over velocity and yaw-rate commands. To make it hold up in real flights, I added obstacle memory, a slack variable to keep the QP feasible, velocity limits, and an escape maneuver for when the drone ends up inside a collision cone. On hardware the drone follows a wave-like reference path while avoiding obstacles. In PyBullet simulation, the team added a control Lyapunov function (CLF) for position tracking and extended the barrier to moving obstacles. We compared CLF-CBF against MPC + CBF on a 20-scenario benchmark measuring success rate, time to goal, smoothness, tracking error and control effort.</p>
-        <p>The biggest lesson was the sim-to-real gap. Most hardware failures came from sensing, not control: the Multi-Ranger only looks along four axes and can miss obstacles off to the side.</p>
-        <div class="video-row">
-          <figure>
-            <video controls muted playsinline preload="none" poster="images/cbf_multi_obstacle.jpg" src="videos/cbf_multi_obstacle.mp4"></video>
-            <figcaption>Multi-obstacle run (lab)</figcaption>
-          </figure>
-          <figure>
-            <video controls muted playsinline preload="none" poster="images/cbf_single_obstacle.jpg" src="videos/cbf_single_obstacle.mp4"></video>
-            <figcaption>Single-obstacle run</figcaption>
-          </figure>
+    <details class="item expandable">
+      <summary>
+        <span class="item-media"><img src="images/cbf_thumb.jpg" alt="Crazyflie nano-quadrotor flying between cardboard-box obstacles in a netted lab"></span>
+        <span class="item-text">
+            <span class="title">Control Barrier Functions for Obstacle Avoidance on a Nano-Quadrotor</span><br>
+            <strong>Crystal Zhou</strong>, Mason Stark, Katherine Horng, Qihan Wang<br>
+            <em>Control Systems Integration, CMU</em>
+            <span class="lede">Real-time obstacle avoidance on a palm-sized Crazyflie drone using control barrier functions, taken from simulation to real flights.</span>
+            <span class="toggle"></span>
+        </span>
+      </summary>
+        <div class="more">
+          <p>Small drones have to dodge obstacles in real time using only lightweight onboard sensing. We used control barrier functions (CBFs), which define a safe set and solve a small quadratic program (CBF-QP) each step to minimally adjust the commanded velocity so the drone never leaves it. We ran this on a Crazyflie, which detects obstacles with its Multi-Ranger deck and estimates its own motion with an optical-flow deck.</p>
+          <p>I led the hardware side, building on Tayal et al.'s collision-cone CBF (C3BF) code. I wrote the Crazyflie interface, which streams state estimates and Multi-Ranger readings over the radio and turns them into obstacles. I also wrote the controller: a 3D C3BF over the drone's 12-state dynamics, solved each step as a QP over velocity and yaw-rate commands. To make it hold up in real flights, I added obstacle memory, a slack variable to keep the QP feasible, velocity limits, and an escape maneuver for when the drone ends up inside a collision cone. On hardware the drone follows a wave-like reference path while avoiding obstacles. In PyBullet simulation, the team added a control Lyapunov function (CLF) for position tracking and extended the barrier to moving obstacles. We compared CLF-CBF against MPC + CBF on a 20-scenario benchmark measuring success rate, time to goal, smoothness, tracking error and control effort.</p>
+          <p>The biggest lesson was the sim-to-real gap. Most hardware failures came from sensing, not control: the Multi-Ranger only looks along four axes and can miss obstacles off to the side.</p>
+          <div class="video-row">
+            <figure>
+              <video controls muted playsinline preload="none" poster="images/cbf_multi_obstacle.jpg" src="videos/cbf_multi_obstacle.mp4"></video>
+              <figcaption>Multi-obstacle run (lab)</figcaption>
+            </figure>
+            <figure>
+              <img src="images/cbf_sim.jpg" alt="PyBullet simulation: the drone, shown with its coordinate axes, approaching a cluster of red spherical obstacles on a checkered floor">
+              <figcaption>PyBullet simulation: the drone (center, with axes) approaching a cluster of obstacles</figcaption>
+            </figure>
+          </div>
         </div>
-      </div>
-    </div>
+    </details>
 
     <div class="item">
       <div class="item-media"><img src="images/placeholder.svg" alt="RoboRacer NMPC project"></div>
       <div class="item-text">
         <span class="title">Nonlinear MPC for RoboRacer</span><br>
-        <em>Optimal Control &amp; Reinforcement Learning, CMU</em><br>
-        <a href="#">code</a> / <a href="#">video</a>
-        <p>Real-time trajectory tracking using the full nonlinear dynamics model and constraints, supporting aggressive maneuvers like drifting.</p>
+        <em>Optimal Control &amp; Reinforcement Learning, CMU</em>
+        <span class="lede">Real-time trajectory tracking using the full nonlinear dynamics model and constraints, supporting aggressive maneuvers like drifting.</span>
       </div>
     </div>
 
-    <div class="item">
-      <div class="item-media"><img src="images/cad_gnn.jpg" alt="Per-face machining feature predictions on a CAD part, shown as a colored 3D point cloud"></div>
-      <div class="item-text">
-        <span class="title">Faces to Features: Hierarchical GNNs for Machining Feature Recognition in B-Rep CAD Models</span><br>
-        Emmanuel George, <strong>Crystal Zhou</strong><br>
-        <em>Intro to Deep Learning, CMU</em><br>
-        <p>LLMs can reason about design, but raw CAD geometry (face normals, areas) means little to them. We train graph neural networks to label every face of a CAD part with its machining feature (pocket, through hole, step, and so on), so that an LLM-based design-for-manufacturing agent can reason over semantic labels instead of raw numbers.</p>
-        <p>On MFCAD++ (59,665 parts, 25 classes), we compare a hierarchical GCN baseline with a hierarchical GraphSAGE across three feature sets of increasing richness. GraphSAGE with UV-sampled surface normals reached <strong>85.0% accuracy and 0.785 macro F1</strong>, compared with 0.338 F1 for the GCN baseline. Adding facet-level hierarchy gave GraphSAGE its largest gain but actually hurt GCN, which suggests that hierarchical aggregation only helps when the model keeps each face's own features. Errors cluster at feature boundaries, and open features like through-steps and slots remain the hardest to recognize.</p>
-      </div>
-    </div>
+    <details class="item expandable">
+      <summary>
+        <span class="item-media"><img src="images/cad_gnn.jpg" alt="Four simple machined CAD parts with pockets, slots and holes, rendered in green"></span>
+        <span class="item-text">
+            <span class="title">Faces to Features: Hierarchical GNNs for Machining Feature Recognition in B-Rep CAD Models</span><br>
+            Emmanuel George, <strong>Crystal Zhou</strong><br>
+            <em>Intro to Deep Learning, CMU</em>
+            <span class="lede">Graph neural networks that label every face of a CAD part with its machining feature, reaching 85% accuracy across 25 feature types.</span>
+            <span class="toggle"></span>
+        </span>
+      </summary>
+        <div class="more">
+          <p>LLMs can reason about design, but raw CAD geometry (face normals, areas) means little to them. We train graph neural networks to label every face of a CAD part with its machining feature (pocket, through hole, step, and so on), so that an LLM-based design-for-manufacturing agent can reason over semantic labels instead of raw numbers.</p>
+          <p>On MFCAD++ (59,665 parts, 25 classes), we compare a hierarchical GCN baseline with a hierarchical GraphSAGE across three feature sets of increasing richness. GraphSAGE with UV-sampled surface normals reached <strong>85.0% accuracy and 0.785 macro F1</strong>, compared with 0.338 F1 for the GCN baseline. Adding facet-level hierarchy gave GraphSAGE its largest gain but actually hurt GCN, which suggests that hierarchical aggregation only helps when the model keeps each face's own features. Errors cluster at feature boundaries, and open features like through-steps and slots remain the hardest to recognize.</p>
+          <table class="results">
+            <thead>
+              <tr><th>Model</th><th>Input features</th><th>Accuracy</th><th>Macro F1</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GCN (baseline)</td><td>Faces only</td><td>44.3%</td><td>0.338</td></tr>
+              <tr><td>GCN</td><td>+ facets + surface normals</td><td>53.8%</td><td>0.469</td></tr>
+              <tr><td>GraphSAGE</td><td>+ facets</td><td>79.4%</td><td>0.727</td></tr>
+              <tr class="best"><td>GraphSAGE</td><td>+ facets + surface normals</td><td>85.0%</td><td>0.785</td></tr>
+            </tbody>
+          </table>
+          <figure class="wide-figure">
+            <img src="images/cad_gnn_fig5.jpg" alt="Four panels: (a) predicted per-face labels as a colored point cloud with 97% face accuracy, (b) a detailed view of the predictions, (c) ground-truth geometry, (d) the solid CAD parts">
+            <figcaption>Per-face predictions from the best model on a simple part: (a) predictions, 97% of faces correct; (b) detailed view; (c) ground truth; (d) the solid parts. Faces are colored by predicted class, and misclassified faces are red.</figcaption>
+          </figure>
+        </div>
+    </details>
   </section>
 
   <!-- ===================== EXPERIENCE ===================== -->
   <section>
     <h2>Experience</h2>
     <ul class="cv-list">
-      <li><strong>Graduate Research Assistant</strong>, Robotic Caregiving &amp; Human Interaction Lab, CMU Robotics Institute <span class="date">2025 – present</span></li>
-      <li><strong>Software Engineer Intern, Flight Controls</strong>, Lockheed Martin Aeronautics <span class="date">Summer 2025</span></li>
-      <li><strong>Technical Project Management Intern</strong>, Lockheed Martin Skunk Works <span class="date">Summer 2024</span></li>
-      <li><strong>Undergraduate Research Assistant</strong>, NeuroMechatronics Lab, CMU <span class="date">Spring 2024</span></li>
+      <li><span class="date">2025 – present</span> <strong>Graduate Research Assistant</strong>, Robotic Caregiving &amp; Human Interaction Lab, CMU Robotics Institute</li>
+      <li><span class="date">Summer 2025</span> <strong>Software Engineer Intern, Flight Controls</strong>, Lockheed Martin Aeronautics</li>
+      <li><span class="date">Summer 2024</span> <strong>Technical Project Management Intern</strong>, Lockheed Martin Skunk Works</li>
+      <li><span class="date">Spring 2024</span> <strong>Undergraduate Research Assistant</strong>, NeuroMechatronics Lab, CMU</li>
+      <li><span class="date">Summer 2023</span> <strong>Engineering Intern</strong>, Bee (Building Energy Efficiency)</li>
+      <li><span class="date">2021, 2023</span> <strong>Manufacturing Intern</strong>, R2Sonic</li>
+      <li><span class="date">Summer 2022</span> <strong>Lab Technician Intern</strong>, Adare Pharma Solutions</li>
     </ul>
 
     <h2>Education</h2>
     <ul class="cv-list">
-      <li><strong>M.S. Mechanical Engineering</strong>, Carnegie Mellon University <span class="date">2026</span></li>
-      <li><strong>B.S. Mechanical Engineering &amp; Biomedical Engineering</strong>, Carnegie Mellon University</li>
+      <li><span class="date">2026</span> <strong>M.S. Mechanical Engineering</strong>, Carnegie Mellon University</li>
+      <li><span class="date">2025</span> <strong>B.S. Mechanical Engineering &amp; Biomedical Engineering</strong>, Carnegie Mellon University</li>
     </ul>
 
     <h2>Misc</h2>
