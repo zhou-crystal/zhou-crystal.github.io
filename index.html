@@ -31,8 +31,6 @@
       <p class="links">
         <a href="mailto:crystalz@andrew.cmu.edu">Email</a> &nbsp;/&nbsp;
         <a href="cv.pdf">CV</a> &nbsp;/&nbsp;
-        <a href="https://scholar.google.com/">Google Scholar</a> &nbsp;/&nbsp;
-        <a href="https://github.com/zhou-crystal">GitHub</a> &nbsp;/&nbsp;
         <a href="https://www.linkedin.com/in/crystal-zhou02/">LinkedIn</a>
       </p>
     </div>
@@ -91,12 +89,24 @@
     <h2>Projects</h2>
 
     <div class="item">
-      <div class="item-media"><img src="images/placeholder.svg" alt="Crazyflie CBF project"></div>
+      <div class="item-media"><img src="images/cbf_thumb.jpg" alt="Crazyflie nano-quadrotor flying between cardboard-box obstacles in a netted lab"></div>
       <div class="item-text">
-        <span class="title">Control Barrier Functions for a Nano-Quadrotor</span><br>
+        <span class="title">Control Barrier Functions for Obstacle Avoidance on a Nano-Quadrotor</span><br>
+        <strong>Crystal Zhou</strong>, Mason Stark, Katherine Horng, Qihan Wang<br>
         <em>Control Systems Integration, CMU</em><br>
-        <a href="#">code</a> / <a href="#">video</a>
-        <p>Deployed a 3D CBF safety filter with TinyMPC on a Crazyflie 2.0 for real-time avoidance of static and dynamic obstacles, validated in PyBullet before hardware tests.</p>
+        <p>Small drones have to dodge obstacles in real time using only lightweight onboard sensing. We used control barrier functions (CBFs), which define a safe set and solve a small quadratic program (CBF-QP) each step to minimally adjust the commanded velocity so the drone never leaves it. We ran this on a Crazyflie, which detects obstacles with its Multi-Ranger deck and estimates its own motion with an optical-flow deck.</p>
+        <p>I led the hardware side, building on Tayal et al.'s collision-cone CBF (C3BF) code. I wrote the Crazyflie interface, which streams state estimates and Multi-Ranger readings over the radio and turns them into obstacles. I also wrote the controller: a 3D C3BF over the drone's 12-state dynamics, solved each step as a QP over velocity and yaw-rate commands. To make it hold up in real flights, I added obstacle memory, a slack variable to keep the QP feasible, velocity limits, and an escape maneuver for when the drone ends up inside a collision cone. On hardware the drone follows a wave-like reference path while avoiding obstacles. In PyBullet simulation, the team added a control Lyapunov function (CLF) for position tracking and extended the barrier to moving obstacles. We compared CLF-CBF against MPC + CBF on a 20-scenario benchmark measuring success rate, time to goal, smoothness, tracking error and control effort.</p>
+        <p>The biggest lesson was the sim-to-real gap. Most hardware failures came from sensing, not control: the Multi-Ranger only looks along four axes and can miss obstacles off to the side.</p>
+        <div class="video-row">
+          <figure>
+            <video controls muted playsinline preload="none" poster="images/cbf_multi_obstacle.jpg" src="videos/cbf_multi_obstacle.mp4"></video>
+            <figcaption>Multi-obstacle run (lab)</figcaption>
+          </figure>
+          <figure>
+            <video controls muted playsinline preload="none" poster="images/cbf_single_obstacle.jpg" src="videos/cbf_single_obstacle.mp4"></video>
+            <figcaption>Single-obstacle run</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
 

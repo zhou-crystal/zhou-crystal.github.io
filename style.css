@@ -89,6 +89,21 @@ h2 { font-size: 22px; font-weight: 400; margin: 36px 0 12px; }
   margin-left: 4px;
 }
 
+.video-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+.video-row figure { margin: 0; flex: 0 1 170px; }
+.video-row video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 4px;
+  display: block;
+  background: #000;
+}
+.video-row figcaption { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
 /* ---------- lists ---------- */
 .news, .cv-list { padding-left: 18px; margin: 0; }
 .news li, .cv-list li { margin-bottom: 6px; }
