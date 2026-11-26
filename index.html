@@ -111,12 +111,13 @@
     </div>
 
     <div class="item">
-      <div class="item-media"><img src="images/placeholder.svg" alt="CAD GNN project"></div>
+      <div class="item-media"><img src="images/cad_gnn.jpg" alt="Per-face machining feature predictions on a CAD part, shown as a colored 3D point cloud"></div>
       <div class="item-text">
-        <span class="title">Faces to Features: Hierarchical GNNs for Feature Recognition in CAD Models</span><br>
+        <span class="title">Faces to Features: Hierarchical GNNs for Machining Feature Recognition in B-Rep CAD Models</span><br>
+        Emmanuel George, <strong>Crystal Zhou</strong><br>
         <em>Intro to Deep Learning, CMU</em><br>
-        <a href="#">report</a> / <a href="#">code</a>
-        <p>Hierarchical GCN for 25-class machining-feature recognition on B-Rep graphs of 59,665 parts; best model reached 85% accuracy and 0.785 macro F1.</p>
+        <p>LLMs can reason about design, but raw CAD geometry (face normals, areas) means little to them. We train graph neural networks to label every face of a CAD part with its machining feature (pocket, through hole, step, and so on), so that an LLM-based design-for-manufacturing agent can reason over semantic labels instead of raw numbers.</p>
+        <p>On MFCAD++ (59,665 parts, 25 classes), we compare a hierarchical GCN baseline with a hierarchical GraphSAGE across three feature sets of increasing richness. GraphSAGE with UV-sampled surface normals reached <strong>85.0% accuracy and 0.785 macro F1</strong>, compared with 0.338 F1 for the GCN baseline. Adding facet-level hierarchy gave GraphSAGE its largest gain but actually hurt GCN, which suggests that hierarchical aggregation only helps when the model keeps each face's own features. Errors cluster at feature boundaries, and open features like through-steps and slots remain the hardest to recognize.</p>
       </div>
     </div>
   </section>
