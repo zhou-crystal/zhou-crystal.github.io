@@ -9,8 +9,21 @@
   --hover-bg: #f6f7f9;
 }
 
+/* Dark theme: used when the visitor picks it with the toggle button, or
+   when their system prefers dark and they haven't picked light. */
+:root[data-theme="dark"] {
+  --text: #e6e6e6;
+  --muted: #9a9a9a;
+  --link: #6cb2ff;
+  --link-hover: #ffb35c;
+  --highlight: #2a2618;
+  --border: #333;
+  --bg: #121212;
+  --hover-bg: #1c1c1e;
+  color-scheme: dark;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --text: #e6e6e6;
     --muted: #9a9a9a;
     --link: #6cb2ff;
@@ -19,8 +32,40 @@
     --border: #333;
     --bg: #121212;
     --hover-bg: #1c1c1e;
+    color-scheme: dark;
   }
 }
+
+/* ---------- day / night toggle ---------- */
+.theme-toggle {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.theme-toggle:hover { transform: rotate(15deg); color: var(--link-hover); }
+.theme-toggle:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.theme-toggle svg { width: 18px; height: 18px; }
+/* Show the moon in light mode (click for night), the sun in dark mode (click for day). */
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+}
+body { transition: background-color 0.2s ease, color 0.2s ease; }
 
 * { box-sizing: border-box; }
 

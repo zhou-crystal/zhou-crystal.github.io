@@ -7,8 +7,19 @@
   <title>Crystal Zhou</title>
   <meta name="description" content="Crystal Zhou — robotics researcher at Carnegie Mellon University working on shared autonomy and robot learning.">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Apply a saved day/night choice before the page draws, to avoid a flash.
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+  </script>
 </head>
 <body>
+<button class="theme-toggle" type="button" aria-label="Switch between light and dark mode" title="Switch between light and dark mode">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
 <main class="container">
 
   <!-- ===================== HEADER / BIO ===================== -->
@@ -137,7 +148,7 @@
 
     <details class="item expandable">
       <summary>
-        <span class="item-media"><img src="images/placeholder.svg" alt="Spinal reflex study teaser"></span>
+        <span class="item-media"><img src="images/reflex_setup.jpg" alt="Illustration of a person walking on an instrumented treadmill with a leg stimulator and wireless EMG sensor for H-reflex measurement"></span>
         <span class="item-text">
           <span class="title">Evidence of Causal Relationship between Spinal Reflex Gain Modulation and Gait Asymmetry During Active Locomotion in Humans</span><br>
           O. Refy, <strong>Crystal Zhou</strong>, et al.<br>
@@ -153,7 +164,6 @@
             <li><strong>Protocol design:</strong> designed 4 tied-belt stimulation and rate-dependent depression (RDD) protocols for a 5-participant study, with participants walking at 1 m/s.</li>
             <li><strong>Real-time stimulation:</strong> wrote Arduino code that triggered stimulation at the right moment in each participant's gait, using live force-plate data.</li>
             <li><strong>Analysis:</strong> analyzed rate-dependent depression of the reflex in Python, ran paired t-tests, and related H-reflex suppression to step-length asymmetry (R² &asymp; 0.89).</li>
-            <li><strong>Writing:</strong> drafted parts of the manuscript and made publication-quality figures of the experimental design and results.</li>
           </ul>
           <p>The close relationship between reflex suppression and step-length asymmetry supports the idea that reflex gain changes can drive gait asymmetry, not just result from it. That makes spinal reflexes a possible target for understanding and retraining asymmetric walking.</p>
         </div>
@@ -192,14 +202,27 @@
         </div>
     </details>
 
-    <div class="item">
-      <div class="item-media"><img src="images/placeholder.svg" alt="RoboRacer NMPC project"></div>
-      <div class="item-text">
-        <span class="title">Nonlinear MPC for RoboRacer</span><br>
-        <em>Optimal Control &amp; Reinforcement Learning, CMU</em>
-        <span class="lede">Real-time trajectory tracking using the full nonlinear dynamics model and constraints, supporting aggressive maneuvers like drifting.</span>
-      </div>
-    </div>
+    <details class="item expandable">
+      <summary>
+        <span class="item-media"><img src="images/roboracer_path.jpg" alt="Plot of the car's executed path closely following the Silverstone track centerline, with time markers every 5 seconds"></span>
+        <span class="item-text">
+          <span class="title">From Grip to Drift: Controlling a Dynamically Accurate Simulator for an F1TENTH Race Car</span><br>
+          Abhinandan Vellanki, Sebin Jung, Andrea Vu, <strong>Crystal Zhou</strong>, Keerthi Gaddobanahalli Vijayakumar<br>
+          <em>Optimal Control &amp; Reinforcement Learning, CMU</em>
+          <span class="lede">A custom simulator and nonlinear MPC for a 1:10-scale F1TENTH (RoboRacer) car that laps the Silverstone circuit, as a step toward autonomous drifting.</span>
+          <span class="toggle"></span>
+        </span>
+      </summary>
+        <div class="more">
+          <p>Autonomous driving research mostly focuses on safe, everyday driving. Professional drivers, though, use skills like controlled drifting to recover when a car starts to slide on rain or snow. This project builds toward giving an autonomous car those skills, using an F1TENTH car (a 1:10-scale Formula 1 car) as the platform.</p>
+          <ul>
+            <li><strong>Dynamically accurate simulator:</strong> a PyBullet simulator built on a dynamic bicycle model with a simplified Pacejka "magic formula" tire model. It captures the tire forces and slip angles that matter at high speed and in a drift, with the goal of moving controllers from simulation to the real car.</li>
+            <li><strong>Line following with MPC:</strong> a nonlinear model predictive controller tracks the centerline of the Silverstone circuit, home of the British Grand Prix. It penalizes cross-track and heading error, keeps steering smooth, and sets target speeds that rise on straights and drop for corners.</li>
+            <li><strong>Drifting formulation:</strong> the team defined steady-state "drift equilibrium" points and linearized the dynamics around them, the basis for a drifting MPC.</li>
+          </ul>
+          <p>In simulation, the car completes a lap of Silverstone while staying close to the centerline. It holds about 5 m/s on straights and slows on its own for corners: to about 3 m/s through Stowe and about 1.5 m/s through the tight Loop. On some turns, like the Club, it takes a smoother line than the centerline, showing the controller respecting the car's physical limits. Closed-loop drifting, and switching automatically between line following and drifting, are next steps.</p>
+        </div>
+    </details>
 
     <details class="item expandable">
       <summary>
@@ -256,7 +279,7 @@
       <li><details><summary><span class="date">Spring 2024</span> <strong>Undergraduate Research Assistant</strong>, NeuroMechatronics Lab, CMU</summary>
         <ul>
           <li>Designed 4 stimulation and rate-dependent depression protocols for a 5-participant walking study, with Arduino-timed stimulation driven by live force-plate data.</li>
-          <li>Related H-reflex suppression to step-length asymmetry (R² &asymp; 0.89) and contributed to the manuscript and figures.</li>
+          <li>Related H-reflex suppression to step-length asymmetry (R² &asymp; 0.89).</li>
         </ul></details></li>
       <li><details><summary><span class="date">Summer 2023</span> <strong>Engineering Intern</strong>, Bee (Building Energy Efficiency)</summary>
         <ul>
@@ -290,5 +313,16 @@
   </footer>
 
 </main>
+<script>
+  // Day/night toggle: flips the current theme and remembers the choice.
+  document.querySelector('.theme-toggle').addEventListener('click', function () {
+    var root = document.documentElement;
+    var current = root.getAttribute('data-theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+</script>
 </body>
 </html>
