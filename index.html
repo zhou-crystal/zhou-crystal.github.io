@@ -22,10 +22,16 @@
         at the <a href="https://www.ri.cmu.edu/">Robotics Institute</a>.
       </p>
       <p>
-        My research focuses on <strong>shared autonomy</strong> and <strong>robot learning</strong> —
-        how humans and pretrained robot foundation models (e.g. vision-language-action policies)
-        can work together so that robots stay robust with minimal human input.        Previously, I worked on autonomous flight controls at Lockheed Martin and studied
-        spinal reflex modulation in the NeuroMechatronics Lab.
+        My research focuses on <strong>shared autonomy</strong> and <strong>robot learning</strong>,
+        particularly how human guidance can improve the capabilities of robot foundation models.
+        I've developed methods that enable people to steer pretrained vision-language-action (VLA)
+        models in real time, and I'm currently exploring how robots can learn from these interactions
+        to better align their behavior with human intent. I'm motivated by advancing robot intelligence
+        to enable robust, adaptable robotic systems that can be reliably deployed in human-centered environments.
+      </p>
+      <p class="seeking">
+        I'm interested in opportunities involving robot foundation models, embodied AI, and robot learning.
+        Feel free to <a href="mailto:crystalz@andrew.cmu.edu">reach out</a>!
       </p>
       <p class="links">
         <a href="mailto:crystalz@andrew.cmu.edu">Email</a> &nbsp;/&nbsp;
@@ -97,13 +103,13 @@
             <video controls playsinline preload="none" poster="images/saps_poster.webp" src="videos/saps.mp4"></video>
             <figcaption>Overview video (3:54)</figcaption>
           </figure>
-          <p class="table-note">* Equal contribution.</p>
+          <p class="footnote">* Equal contribution.</p>
         </div>
     </details>
 
     <details class="item expandable">
       <summary>
-        <span class="item-media"><img src="images/viewpoint_fig2.jpg" alt="Diagram: shared autonomy connects human needs (rich communication, adaptability, reliability) with the capabilities and limits of generalist robot policies"></span>
+        <span class="item-media"><img src="images/viewpoint_fig1.jpg" alt="Illustration: a person guides a robot through channels such as gaze, gestures, language, wearables, biometrics and a joystick, feeding a shared-autonomy VLA"></span>
         <span class="item-text">
           <span class="title">Shared Autonomy as a Core Design Principle for Robot Foundation Models</span> <span class="tag">under review</span><br>
           <strong>Crystal Zhou</strong>, et al. (with Toyota Research Institute)<br>
@@ -129,15 +135,29 @@
         </div>
     </details>
 
-    <div class="item">
-      <div class="item-media"><img src="images/placeholder.svg" alt="Spinal reflex study teaser"></div>
-      <div class="item-text">
-        <span class="title">Evidence of Causal Relationship between Spinal Reflex Gain Modulation and Gait Asymmetry During Active Locomotion in Humans</span><br>
-        O. Refy, <strong>Crystal Zhou</strong>, et al.<br>
-        <em>Society for Neuroscience Annual Meeting</em>, 2024 (PSTR076.14)
-        <span class="lede">A human study analyzing H-reflex suppression during asymmetric gait.</span>
-      </div>
-    </div>
+    <details class="item expandable">
+      <summary>
+        <span class="item-media"><img src="images/placeholder.svg" alt="Spinal reflex study teaser"></span>
+        <span class="item-text">
+          <span class="title">Evidence of Causal Relationship between Spinal Reflex Gain Modulation and Gait Asymmetry During Active Locomotion in Humans</span><br>
+          O. Refy, <strong>Crystal Zhou</strong>, et al.<br>
+          <em>Society for Neuroscience Annual Meeting</em>, 2024 (poster PSTR076.14)
+          <span class="lede">A human walking study linking suppression of a spinal reflex (the H-reflex) to step-length asymmetry, with a strong correlation (R² &asymp; 0.89) across 5 participants.</span>
+          <span class="toggle"></span>
+        </span>
+      </summary>
+        <div class="more">
+          <p>When people walk, spinal reflexes are constantly tuned up and down. This study asked whether changing a reflex's strength can itself cause walking to become asymmetric, rather than just following from it. We measured the H-reflex, an electrically evoked spinal reflex in the leg, while participants walked on a treadmill.</p>
+          <p>My part (NeuroMechatronics Lab, CMU, Spring 2024):</p>
+          <ul>
+            <li><strong>Protocol design:</strong> designed 4 tied-belt stimulation and rate-dependent depression (RDD) protocols for a 5-participant study, with participants walking at 1 m/s.</li>
+            <li><strong>Real-time stimulation:</strong> wrote Arduino code that triggered stimulation at the right moment in each participant's gait, using live force-plate data.</li>
+            <li><strong>Analysis:</strong> analyzed rate-dependent depression of the reflex in Python, ran paired t-tests, and related H-reflex suppression to step-length asymmetry (R² &asymp; 0.89).</li>
+            <li><strong>Writing:</strong> drafted parts of the manuscript and made publication-quality figures of the experimental design and results.</li>
+          </ul>
+          <p>The close relationship between reflex suppression and step-length asymmetry supports the idea that reflex gain changes can drive gait asymmetry, not just result from it. That makes spinal reflexes a possible target for understanding and retraining asymmetric walking.</p>
+        </div>
+    </details>
   </section>
 
   <!-- ===================== PROJECTS ===================== -->
@@ -161,12 +181,12 @@
           <p>The biggest lesson was the sim-to-real gap. Most hardware failures came from sensing, not control: the Multi-Ranger only looks along four axes and can miss obstacles off to the side.</p>
           <div class="video-row">
             <figure>
-              <video controls muted playsinline preload="none" poster="images/cbf_multi_obstacle.jpg" src="videos/cbf_multi_obstacle.mp4"></video>
+              <video class="v-portrait" controls muted playsinline preload="none" poster="images/cbf_multi_obstacle.jpg" src="videos/cbf_multi_obstacle.mp4"></video>
               <figcaption>Multi-obstacle run (lab)</figcaption>
             </figure>
             <figure>
-              <img src="images/cbf_sim.jpg" alt="PyBullet simulation: the drone, shown with its coordinate axes, approaching a cluster of red spherical obstacles on a checkered floor">
-              <figcaption>PyBullet simulation: the drone (center, with axes) approaching a cluster of obstacles</figcaption>
+              <video class="v-landscape" controls muted loop playsinline preload="none" poster="images/cbf_pybullet_poster.jpg" src="videos/cbf_pybullet.mp4"></video>
+              <figcaption>PyBullet simulation: avoiding obstacles (safety margins shown in yellow)</figcaption>
             </figure>
           </div>
         </div>
@@ -217,14 +237,42 @@
   <!-- ===================== EXPERIENCE ===================== -->
   <section>
     <h2>Experience</h2>
-    <ul class="cv-list">
-      <li><span class="date">2025 – present</span> <strong>Graduate Research Assistant</strong>, Robotic Caregiving &amp; Human Interaction Lab, CMU Robotics Institute</li>
-      <li><span class="date">Summer 2025</span> <strong>Software Engineer Intern, Flight Controls</strong>, Lockheed Martin Aeronautics</li>
-      <li><span class="date">Summer 2024</span> <strong>Technical Project Management Intern</strong>, Lockheed Martin Skunk Works</li>
-      <li><span class="date">Spring 2024</span> <strong>Undergraduate Research Assistant</strong>, NeuroMechatronics Lab, CMU</li>
-      <li><span class="date">Summer 2023</span> <strong>Engineering Intern</strong>, Bee (Building Energy Efficiency)</li>
-      <li><span class="date">2021, 2023</span> <strong>Manufacturing Intern</strong>, R2Sonic</li>
-      <li><span class="date">Summer 2022</span> <strong>Lab Technician Intern</strong>, Adare Pharma Solutions</li>
+    <ul class="cv-list exp">
+      <li><details><summary><span class="date">2025 – present</span> <strong>Graduate Research Assistant</strong>, Robotic Caregiving &amp; Human Interaction Lab, CMU Robotics Institute</summary>
+        <ul>
+          <li>First author of SAPS, an action-level shared-autonomy framework that blends sparse human input with a pretrained VLA (π0.5), evaluated in a 14-person user study.</li>
+          <li>First author of a viewpoint with Toyota Research Institute on shared autonomy for robot foundation models; developing VLA fine-tuning from sparse human interventions.</li>
+        </ul></details></li>
+      <li><details><summary><span class="date">Summer 2025</span> <strong>Software Engineer Intern, Flight Controls</strong>, Lockheed Martin Aeronautics</summary>
+        <ul>
+          <li>Extended AI control authority on the VISTA F-16 autonomy testbed by integrating 16 additional autonomous control inputs in Simulink.</li>
+          <li>Tested and tuned the autonomy control interfaces in high-fidelity simulation to verify command execution under safety constraints.</li>
+        </ul></details></li>
+      <li><details><summary><span class="date">Summer 2024</span> <strong>Technical Project Management Intern</strong>, Lockheed Martin Skunk Works</summary>
+        <ul>
+          <li>Coordinated Skunk Works' annual 3-day R&amp;D review: ~45 technical briefs and ~6 tours for 100+ internal and international attendees.</li>
+          <li>Designed a .NET WPF desktop UI and fixed execution hangs, stabilizing a VR pipeline for aircraft repair visualization.</li>
+        </ul></details></li>
+      <li><details><summary><span class="date">Spring 2024</span> <strong>Undergraduate Research Assistant</strong>, NeuroMechatronics Lab, CMU</summary>
+        <ul>
+          <li>Designed 4 stimulation and rate-dependent depression protocols for a 5-participant walking study, with Arduino-timed stimulation driven by live force-plate data.</li>
+          <li>Related H-reflex suppression to step-length asymmetry (R² &asymp; 0.89) and contributed to the manuscript and figures.</li>
+        </ul></details></li>
+      <li><details><summary><span class="date">Summer 2023</span> <strong>Engineering Intern</strong>, Bee (Building Energy Efficiency)</summary>
+        <ul>
+          <li>Built a Python multivariate regression tool that approximates optimal energy systems for commercial buildings, integrated into Excel for company-wide use.</li>
+          <li>Produced energy-efficiency assessment reports from on-site data.</li>
+        </ul></details></li>
+      <li><details><summary><span class="date">2021, 2023</span> <strong>Manufacturing Intern</strong>, R2Sonic</summary>
+        <ul>
+          <li>Modeled sound velocity probe performance under extreme sea pressure and wrote a Python tool to assess transducer manufacturing consistency.</li>
+          <li>Assembled sonar receiver components and pressure-rated underwater cables; certified in soldering.</li>
+        </ul></details></li>
+      <li><details><summary><span class="date">Summer 2022</span> <strong>Lab Technician Intern</strong>, Adare Pharma Solutions</summary>
+        <ul>
+          <li>Ran dissolution and viscosity testing and maintained HPLC/UPLC equipment to verify drug release over time.</li>
+          <li>Helped integrate a new device that actuates nasal sprays consistently for more reliable testing.</li>
+        </ul></details></li>
     </ul>
 
     <h2>Education</h2>

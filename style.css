@@ -172,24 +172,25 @@ details[open] .toggle::after { transform: translateY(1px) rotate(-135deg); }
 
 .video-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 12px;
 }
-.video-row figure { margin: 0; flex: 0 1 220px; }
-.video-row video {
-  width: 100%;
-  aspect-ratio: 9 / 16;
+/* Videos in a row share one height, so portrait and landscape clips
+   appear at a comparable size; width follows each clip's shape. */
+.video-row figure { margin: 0; flex: 0 0 auto; max-width: 100%; }
+.video-row video, .video-row img {
+  height: 320px;
+  width: auto;
+  max-width: 100%;
   border-radius: 4px;
   display: block;
   background: #000;
+  object-fit: contain;
 }
-.video-row img {
-  width: 100%;
-  aspect-ratio: 9 / 16;
-  object-fit: cover;
-  border-radius: 4px;
-  display: block;
-}
+.video-row .v-portrait { aspect-ratio: 9 / 16; }
+.video-row .v-landscape { aspect-ratio: 16 / 9; }
+.video-row figcaption { max-width: 0; min-width: 100%; }
 .video-row figcaption { font-size: 13px; color: var(--muted); margin-top: 4px; }
 
 /* ---------- lists ---------- */
@@ -213,8 +214,57 @@ footer {
   .intro { flex-direction: column-reverse; }
   .intro-photo { width: 55%; }
   .item, details.item > summary { flex-direction: column; }
+  .video-row figure { flex: 1 1 100%; }
+  .video-row video { height: auto; width: 100%; }
+  .video-row .v-portrait { width: 60%; margin: 0 auto; }
   .item-media { flex: none; width: 100%; max-width: 320px; }
   details.item > summary .item-media { width: 100%; }
   .cv-list .date { float: none; display: block; padding-left: 0; }
 }
 .results.num td:nth-child(n+2), .results.num th:nth-child(n+2) { text-align: right; padding-left: 12px; }
+
+/* ---------- center non-text content inside dropdowns ---------- */
+.more .results { margin-left: auto; margin-right: auto; }
+.more .table-note { text-align: center; max-width: 560px; margin-left: auto; margin-right: auto; }
+.more .wide-figure img, .more .wide-figure video { margin-left: auto; margin-right: auto; }
+.more figcaption { text-align: center; }
+.more .wide-figure figcaption { max-width: 560px; margin-left: auto; margin-right: auto; }
+.more .video-row { justify-content: center; }
+.footnote { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ---------- expandable experience lines ---------- */
+.exp > li > details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.exp > li > details > summary::-webkit-details-marker { display: none; }
+.exp > li > details > summary::after {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 8px;
+  border-right: 1.5px solid var(--link);
+  border-bottom: 1.5px solid var(--link);
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.exp > li > details[open] > summary::after { transform: translateY(0) rotate(-135deg); }
+.exp > li > details > summary:hover strong { color: var(--link-hover); }
+.exp > li > details > summary:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 3px; }
+.exp > li > details > ul {
+  margin: 6px 0 4px;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 14px;
+  list-style: circle;
+  animation: reveal 0.2s ease;
+}
+.exp > li > details > ul > li { margin-bottom: 3px; }
+
+.seeking {
+  padding: 8px 12px;
+  border-left: 3px solid var(--link);
+  background: var(--hover-bg);
+  border-radius: 0 4px 4px 0;
+}
